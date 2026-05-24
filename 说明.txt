@@ -1,0 +1,7 @@
+http://localhost:8080/tourismrecmngsys/admin/dist/index.html
+http://localhost:8080/tourismrecmngsys/front/dist/index.html
+
+用户 1 1
+管理员 admin admin
+
+导游 guide1 123456

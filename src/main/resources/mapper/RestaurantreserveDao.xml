@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.RestaurantreserveDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.RestaurantreserveEntity" id="restaurantreserveMap">
+        <result property="restaurantname" column="restaurantname"/>
+        <result property="address" column="address"/>
+        <result property="reserveprice" column="reserveprice"/>
+        <result property="reservetime" column="reservetime"/>
+        <result property="reserveremark" column="reserveremark"/>
+        <result property="username" column="username"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="ispay" column="ispay"/>
+
+		<result property="refid" column="refid"/>
+		<result property="rating" column="rating"/>
+		<result property="review" column="review"/>
+		<result property="sfsh" column="sfsh"/>
+		<result property="shhf" column="shhf"/>
+		<result property="avatar" column="avatar"/>
+		<result property="merchantusername" column="merchantusername"/>
+		<result property="merchantname" column="merchantname"/>
+    </resultMap>
+
+
+
+    <select id="selectListView"
+		resultType="com.entity.view.RestaurantreserveView" >
+
+		SELECT  restaurantreserve.* FROM restaurantreserve  restaurantreserve
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.RestaurantreserveView" >
+		SELECT * FROM restaurantreserve  restaurantreserve <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+	<select id="calculateRating" resultType="double">
+		SELECT AVG(rating) FROM restaurantreserve WHERE refid = #{id} AND sfsh = '已评价'
+	</select>
+</mapper>

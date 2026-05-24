@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.GuideDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.GuideEntity" id="guideMap">
+        <result property="guideusername" column="guideusername"/>
+        <result property="password" column="password"/>
+        <result property="guidename" column="guidename"/>
+        <result property="phone" column="phone"/>
+        <result property="idcard" column="idcard"/>
+        <result property="avatar" column="avatar"/>
+        <result property="qualification" column="qualification"/>
+        <result property="specialties" column="specialties"/>
+        <result property="price" column="price"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+    <select id="selectListView"
+		resultType="com.entity.view.GuideView" >
+
+		SELECT  guide.* FROM guide  guide
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.GuideView" >
+		SELECT * FROM guide  guide <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>

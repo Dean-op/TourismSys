@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.GuideorderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.GuideorderEntity" id="guideorderMap">
+        <result property="userid" column="userid"/>
+        <result property="username" column="username"/>
+        <result property="guideid" column="guideid"/>
+        <result property="guideusername" column="guideusername"/>
+        <result property="guidename" column="guidename"/>
+        <result property="plandate" column="plandate"/>
+        <result property="days" column="days"/>
+        <result property="amount" column="amount"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+
+    <select id="selectListView"
+		resultType="com.entity.view.GuideorderView" >
+
+		SELECT  guideorder.* FROM guideorder  guideorder
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.GuideorderView" >
+		SELECT * FROM guideorder  guideorder <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>

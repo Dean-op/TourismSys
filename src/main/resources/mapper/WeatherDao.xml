@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.WeatherDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.WeatherEntity" id="weatherMap">
+        <result property="city" column="city"/>
+        <result property="picture" column="picture"/>
+        <result property="weather" column="weather"/>
+        <result property="temp" column="temp"/>
+        <result property="wet" column="wet"/>
+        <result property="wind" column="wind"/>
+        <result property="windspeed" column="windspeed"/>
+        <result property="outdoor" column="outdoor"/>
+        <result property="clothing" column="clothing"/>
+        <result property="updatetime" column="updatetime"/>
+    </resultMap>
+
+
+
+
+    <select id="selectListView"
+		resultType="com.entity.view.WeatherView" >
+
+		SELECT  weather.* FROM weather  weather
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.WeatherView" >
+		SELECT * FROM weather  weather <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>
