@@ -1,103 +1,110 @@
-# 🌟 桂林漓江旅游推荐与管理系统 (TourismSys)
+# 🌟 Guilin Li River Tourism Recommendation & Management System (TourismSys)
 
+This system is a comprehensive digital platform tailored for the tourism industry. It is developed with a **separated frontend and backend architecture**, and incorporates **monolithic hosting** of compiled Vue.js frontend production bundles directly inside Spring Boot's static classpath, offering a seamless "single-port, dual-client" execution experience.
 
-系统具备三个独立核心角色：**用户端**、**商家端**、**系统管理员端**。
-
----
-
-## 🛠️ 本机运行环境准备
-在正式运行系统前，请确保您的电脑上已安装并配置好以下基础开发工具：
-1. **Java 运行环境**：`JDK 1.8`（或更高版本，推荐 1.8）
-2. **数据库服务**：`MySQL 5.7` 或 `MySQL 8.0`
-3. **集成开发工具**：`IntelliJ IDEA`
-4. **数据库管理工具**：`Navicat`
-5. **推荐浏览器**：谷歌 `Chrome`
+The system features three distinct, independent roles: **User Client (Frontend)**, **Merchant Client (Resources, Booking Approvals & Analytics)**, and **System Administrator Client (Merchant Auditing, Global Moderation & Data Analytics)**.
 
 ---
 
-## 🚀 极其详细的启动教程
-
-遵循以下 4 个步骤，保证您能在您的电脑上完美复现所有功能：
-
-### 📌 第一步：创建数据库并导入 SQL 脚本
-1. 打开您的数据库管理工具（以 **Navicat** 为例）。
-2. 连接上您的本地 MySQL 数据库服务。
-3. 在左侧连接上右键，选择 **“新建数据库”**：
-   * ⚠️ **数据库名** 必须填入：`boot_tourismrecmngsys`
-   * ⚠️ **字符集** 必须选择：`utf8mb4` (防止中文汉字或特殊符号乱码)
-   * ⚠️ **排序规则** 必须选择：`utf8mb4_general_ci`
-4. 双击打开新建的 `boot_tourismrecmngsys` 数据库（使其图标变成绿色）。
-5. 在数据库上右键，选择 **“运行 SQL 文件...”**。
-6. 点击文件夹图标，选择本项目源码中对应的数据库备份文件：
-   * 路径：`[您的项目根目录]/db/boot_tourismrecmngsys.sql`
-7. 点击 **“开始”** 运行，等待下方进度条跑满并提示 `Successfully` 导入成功后，点击关闭。
-8. 选中左侧数据库，按下 `F5` 键刷新，此时即可看到所有数据表（如 `hotelinfo`、`merchant` 等）以及丰富的初始旅游数据已完美导入！
+## 🛠️ Prerequisites & Environment Setup
+Before running the system, make sure the following base tools are installed and configured on your computer:
+1. **Java Runtime Environment (JRE)**: `JDK 1.8` (Highly recommended version)
+2. **Database Service**: `MySQL 5.7` or `MySQL 8.0`
+3. **IDE (Integrated Development Environment)**: `IntelliJ IDEA` (Ultimate or Community edition)
+4. **Database Management Tool**: `Navicat` (Recommended) or `SQLyog`
+5. **Modern Web Browser**: Google `Chrome` or Microsoft `Edge`
 
 ---
 
-### 📌 第二步：用 IDEA 打开项目并修改数据库配置
-1. 打开 **IntelliJ IDEA** 软件。
-2. 选择 **“Open”**（打开），然后导航到本项目的根目录文件夹，点击确定导入项目。
-3. 等待右下角 Maven 依赖加载完成（确保电脑网络畅通，项目会自动下载所有相关的 Java 依赖包）。
-4. 在左侧项目目录树中，找到并打开配置文件：
-   * 路径：`src/main/resources/application.yml`
-5. 找到第 13 行起的 `datasource` 数据库配置部分，将其修改为您本机 MySQL 的实际连接信息：
+## 🚀 Step-by-Step Startup Tutorial
+
+Follow these 4 simple steps to replicate the system locally:
+
+### 📌 Step 1: Create Database & Import SQL Schema
+1. Open your database management tool (e.g. **Navicat**).
+2. Connect to your local MySQL database service.
+3. Right-click on your connection and select **"New Database"**:
+   * ⚠️ **Database Name**: `boot_tourismrecmngsys`
+   * ⚠️ **Character Set**: `utf8mb4` (Prevents Chinese characters or special symbols from corrupting)
+   * ⚠️ **Collation**: `utf8mb4_general_ci`
+4. Double-click to open the newly created `boot_tourismrecmngsys` database (making its icon turn green).
+5. Right-click on the database icon and choose **"Run SQL File..."**.
+6. Click the folder icon, choose the database backup file located in this repository:
+   * Path: `[Project Root Directory]/db/boot_tourismrecmngsys.sql`
+7. Click **"Start"** to execute, and click "Close" once the progress bar reaches 100% and displays `Successfully`.
+8. Press `F5` to refresh the database. You will now see all database tables (e.g., `hotelinfo`, `merchant` etc.) and pre-populated tourism mock data successfully loaded!
+
+---
+
+### 📌 Step 2: Open Project in IDEA & Modify Database Password
+1. Open **IntelliJ IDEA**.
+2. Click **"Open"**, navigate to the project root directory, and click OK.
+3. Wait for the Maven dependencies to fully load (IDEA will automatically download all libraries).
+4. In the left project explorer, find and open the configuration file:
+   * Path: `src/main/resources/application.yml`
+5. Locate the `datasource` configuration starting from line 13, and change it to align with your local MySQL password:
    ```yaml
    spring:
        datasource:
            driverClassName: com.mysql.cj.jdbc.Driver
-           # 确保下方数据库名称正确，默认为 boot_tourismrecmngsys
            url: jdbc:mysql://127.0.0.1:3306/boot_tourismrecmngsys?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&useSSL=false&requireSSL=false
            username: root
-           password: 123456  # ⚠️ 修改这里！填写您电脑上 MySQL 的 root 账号密码
+           password: 123456  # ⚠️ Change this! Enter your local MySQL root password
    ```
 
 ---
 
-### 📌 第三步：一键运行后端 Spring Boot 主程序
-1. 在 IDEA 左侧的工程目录中，依次展开路径：
+### 📌 Step 3: Run the Spring Boot Application
+1. In the project explorer, expand the folders:
    * `src` -> `main` -> `java` -> `com`
-2. 找到并双击打开主启动类：`SpringbootSchemaApplication.java`
-3. 在代码编辑区域的空白处右键，或者在 `public class SpringbootSchemaApplication` 旁，点击绿色的 **“运行”图标 (Run 'SpringbootSchemaApplication.main()')**。
-4. 控制台开始滚动日志，当看到输出漂亮的 `Spring` 图案，并最终打印出类似如下的启动成功日志时：
+2. Locate and double-click the main startup class: `SpringbootSchemaApplication.java`
+3. Right-click anywhere in the editor, or click the green **"Run" icon** next to `public class SpringbootSchemaApplication`.
+4. The console logs will begin rolling. Once you see the Spring logo and the output:
    `Started SpringbootSchemaApplication in 4.567 seconds (JVM running for 5.123)`
-   说明整个后端服务器已在 **`8080` 端口** 成功跑起来了！
+   The backend server has successfully started on **Port `8080`**!
 
 ---
 
-### 📌 第四步：浏览器访问与登录验证
+### 📌 Step 4: Access in Browser
 
-后端服务启动后，前端页面已经自动处于托管运行状态。请打开您的 Chrome 或 Edge 浏览器，直接输入以下链接进行体验：
+Since the compiled frontend production assets are fully hosted inside Spring Boot, you can access the entire system directly using the following URLs:
 
-#### 📱 A. 旅游系统前台（用户端入口）
-* **访问链接**：[http://localhost:8080/tourismrecmngsys/front/dist/index.html](http://localhost:8080/tourismrecmngsys/front/dist/index.html)
-* **功能体验**：查阅景点、预订星空酒店、寻找当地导游、在悬崖餐厅点餐、发表真实评论等。
-* **内置测试用户**：
-  * 账号：`1`
-  * 密码：`1`
-  * *(注：您也可以直接在页面上点击“注册”按钮自主创建新的普通用户角色)*
+#### 📱 A. Tourism System Frontend (User Client Entrance)
+* **URL**: [http://localhost:8080/tourismrecmngsys/front/dist/index.html](http://localhost:8080/tourismrecmngsys/front/dist/index.html)
+* **Experience Features**: Browse scenic spots, book star hotels, find local tour guides, order custom local foods, submit reviews, etc.
+* **Test User Account**:
+  * Username: `1`
+  * Password: `1`
+  * *(Or register a new account directly on the page)*
 
-#### 🛡️ B. 旅游系统后台管理中心（管理员/商家端入口）
-* **访问链接**：[http://localhost:8080/tourismrecmngsys/admin/dist/index.html](http://localhost:8080/tourismrecmngsys/admin/dist/index.html)
-* **不同角色的账号与密码**：
-  1. **系统最高管理员 (Admin)**：
-     * 账号：`admin`
-     * 密码：`admin`
-     * *（权限：拥有全盘掌控能力，可以对自主入驻的商家资质进行审核，发布公共新闻，全局数据宏观调配等）*
-  2. **景区入住商家 (Merchant - 绿野仙踪度假村)**：
-     * 账号：`shop1`
-     * 密码：`123456`
-     * *（权限：拥有高颜值的专属 ECharts 经营看板，可以增删改查自家经营的酒店、景点、餐厅，审批用户预订订单，回复用户对自己资源的评论等）*
-  3. **专业当地导游 (Guide)**：
-     * 账号：`guide1`
-     * 密码：`123456`
-     * *（权限：个人导游中心、接收并处理游客的导游预约订单等）*
+#### 🛡️ B. Administration & Merchant Center (Backoffice Entrance)
+* **URL**: [http://localhost:8080/tourismrecmngsys/admin/dist/index.html](http://localhost:8080/tourismrecmngsys/admin/dist/index.html)
+* **Default Credentials for Different Roles**:
+  1. **System Administrator (Admin)**:
+     * Username: `admin`
+     * Password: `admin`
+     * *（Scope: Global moderation, merchant qualification review/audit, public news publishing, global data dashboard etc.）*
+  2. **Merchant Client (Merchant - shop1)**:
+     * Username: `shop1`
+     * Password: `123456`
+     * *（Scope: Personal high-aesthetic ECharts business dashboard, add/edit/delete self-operated hotels, scenic spots, and restaurants, approve customer orders, reply to reviews left by visitors, etc.）*
+  3. **Tour Guide (Guide)**:
+     * Username: `guide1`
+     * Password: `123456`
+     * *（Scope: Personal profile management, review and process guide booking orders, etc.）*
+
+---
+
+## ⚠️ Troubleshooting & FAQ
+
+### 1. Why are Chinese characters displayed as question marks `?`?
+If you see question marks in the data table rows, it means the database import was executed using an incorrect character set transcode (usually GBK).
+* **Direct Solution**:
+  1. In IDEA, click the red square button to **Stop** the backend server.
+  2. Re-create the `boot_tourismrecmngsys` database with `utf8mb4` encoding in Navicat, and re-import `db/boot_tourismrecmngsys.sql`.
+  3. Restart the Spring Boot backend server.
+  4. In your browser, press **`Ctrl + F5`** (Mac users: **`Cmd + Shift + R`**) to perform a hard-refresh. The question marks will disappear completely and show beautiful, clean tourism data!
 
 ---
 
-## ⚠️ 核心排错 & 注意事项
-
-### 1. 数据库密码错误导致启动失败？
-如果启动时控制台抛出 `Access denied for user 'root'@'localhost' (using password: YES)` 错误，请检查 `application.yml` 文件中的 `password:` 字段是否和您本机 MySQL 的真实密码对齐，并确认数据库服务本身已开启。
-
----
+Enjoy using the system! It is a complete, polished, production-ready tourism recommendation and management system! ✨
